@@ -1,4 +1,6 @@
 import { BrowserWindow, BrowserWindowConstructorOptions } from 'electron';
+import { getUserConfigData, setUserConfigData } from '../services/config';
+import { UserConfig } from '../../models/userConfig';
 
 export async function openMainWindow(webpackEntry: string, preloadEntry: string): Promise<BrowserWindow> {
   let windows = BrowserWindow.getAllWindows();
@@ -14,9 +16,13 @@ export async function openMainWindow(webpackEntry: string, preloadEntry: string)
 }
 
 async function createMainWindow(webpackEntry: string, preloadEntry:string) {
+  const userConfig: UserConfig = getUserConfigData();
+
   const config: BrowserWindowConstructorOptions = {
-    width: 600,
-    height: 600,
+    width: userConfig.mainWindow.width,
+    height: userConfig.mainWindow.height,
+    x: userConfig.mainWindow.x,
+    y: userConfig.mainWindow.y,
     webPreferences: {
       contextIsolation: false,
       nodeIntegration: true,
@@ -26,6 +32,22 @@ async function createMainWindow(webpackEntry: string, preloadEntry:string) {
   };
   
   const win = new BrowserWindow(config);
+
+  win.on("resize", () => {
+    const userConfig: UserConfig = getUserConfigData();
+    userConfig.mainWindow.width = win.getBounds().width;
+    userConfig.mainWindow.height = win.getBounds().height;
+
+    setUserConfigData(userConfig);
+  })
+
+  win.on("move", () => {
+    const userConfig: UserConfig = getUserConfigData();
+    userConfig.mainWindow.x = win.getBounds().x;
+    userConfig.mainWindow.y = win.getBounds().y;
+
+    setUserConfigData(userConfig);
+  })
   
   const loadedPromise = new Promise<void>((resolve, reject) => {
     const timeout = setTimeout(
