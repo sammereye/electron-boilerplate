@@ -1,9 +1,9 @@
 import { BrowserWindow, BrowserWindowConstructorOptions } from 'electron';
 
-export async function openMainWindow(webpackEntry: string): Promise<BrowserWindow> {
+export async function openMainWindow(webpackEntry: string, preloadEntry: string): Promise<BrowserWindow> {
   let windows = BrowserWindow.getAllWindows();
   if (windows.length === 0) {
-    await createMainWindow(webpackEntry);
+    await createMainWindow(webpackEntry, preloadEntry);
     windows = BrowserWindow.getAllWindows();
   } else {
     windows[0].show();
@@ -13,14 +13,15 @@ export async function openMainWindow(webpackEntry: string): Promise<BrowserWindo
   return windows[0];
 }
 
-async function createMainWindow(webpackEntry: string) {
+async function createMainWindow(webpackEntry: string, preloadEntry:string) {
   const config: BrowserWindowConstructorOptions = {
     width: 600,
     height: 600,
     webPreferences: {
       contextIsolation: false,
       nodeIntegration: true,
-      spellcheck: false
+      spellcheck: false,
+      preload: preloadEntry
     }
   };
   

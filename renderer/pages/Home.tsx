@@ -1,6 +1,6 @@
 import React from "react";
 import { useHookstate } from "@hookstate/core";
-import { COUNT } from "../state/number";
+import { COUNT, addToCount } from "../state/number";
 
 export function Home() {
   const count = useHookstate(COUNT);
@@ -12,7 +12,7 @@ export function Home() {
       <button 
         type="button" 
         className="rounded-md bg-blue-600 mt-3 px-3 py-2 text-sm font-semibold text-white shadow-sm"
-        onClick={() => { count.set(count.get() + 1) }}
+        onClick={() => { addToCount() }}
       >
         Add to Count
       </button>
