@@ -18,7 +18,8 @@
     "webpack.main.config.ts": true,
     "webpack.plugins.ts": true,
     "webpack.renderer.config.ts": true,
-    "webpack.rules.ts": true
+    "webpack.rules.ts": true,
+    "README.md": true
   },
   "explorerExclude.backup": {}
 }
