@@ -2,10 +2,13 @@ import { BrowserWindow, BrowserWindowConstructorOptions } from 'electron';
 import { getUserConfigData, setUserConfigData } from '../services/config';
 import { UserConfig } from '../../models/userConfig';
 
-export async function openMainWindow(webpackEntry: string, preloadEntry: string): Promise<BrowserWindow> {
+declare const INDEX_WINDOW_WEBPACK_ENTRY: string;
+declare const OTHER_WINDOW_WEBPACK_ENTRY: string;
+
+export async function openMainWindow(): Promise<BrowserWindow> {
   let windows = BrowserWindow.getAllWindows();
   if (windows.length === 0) {
-    await createMainWindow(webpackEntry, preloadEntry);
+    await createMainWindow();
     windows = BrowserWindow.getAllWindows();
   } else {
     windows[0].show();
@@ -15,7 +18,7 @@ export async function openMainWindow(webpackEntry: string, preloadEntry: string)
   return windows[0];
 }
 
-async function createMainWindow(webpackEntry: string, preloadEntry:string) {
+async function createMainWindow(): Promise<void> {
   const userConfig: UserConfig = getUserConfigData();
 
   const config: BrowserWindowConstructorOptions = {
@@ -27,7 +30,7 @@ async function createMainWindow(webpackEntry: string, preloadEntry:string) {
       contextIsolation: false,
       nodeIntegration: true,
       spellcheck: false,
-      preload: preloadEntry
+      devTools:  true,
     }
   };
   
@@ -60,6 +63,33 @@ async function createMainWindow(webpackEntry: string, preloadEntry:string) {
     });
   });
 
-  win.loadURL(webpackEntry);
+  win.loadURL(INDEX_WINDOW_WEBPACK_ENTRY);
+  await loadedPromise;
+}
+
+export async function createNewWindow(): Promise<void> {
+  const config: BrowserWindowConstructorOptions = {
+    webPreferences: {
+      contextIsolation: false,
+      nodeIntegration: true,
+      spellcheck: false,
+      devTools:  true,
+    }
+  };
+  
+  const secondaryWin = new BrowserWindow(config);
+
+  const loadedPromise = new Promise<void>((resolve, reject) => {
+    const timeout = setTimeout(
+      () => reject(new Error("Timed-out waiting for window to load")),
+      10000
+    );
+    secondaryWin.webContents.once("did-finish-load", () => {
+      clearTimeout(timeout);
+      resolve();
+    });
+  });
+
+  secondaryWin.loadURL(OTHER_WINDOW_WEBPACK_ENTRY);
   await loadedPromise;
 }

@@ -1,13 +1,14 @@
 import React from "react";
 import { useHookstate } from "@hookstate/core";
 import { COUNT, addToCount } from "../state/number";
+import { openNewWindow } from '../ipc';
 
-export function OtherPage() {
+export function IndexPage() {
   const count = useHookstate(COUNT);
 
   return (
     <div className="mt-2">
-      <h1>This is the other page</h1>
+      <h1>This is the home page</h1>
       <p>Count: { count.get() }</p>
       <button 
         type="button" 
@@ -15,6 +16,13 @@ export function OtherPage() {
         onClick={() => { addToCount() }}
       >
         Add to Count
+      </button>
+      <button 
+        type="button" 
+        className="rounded-md bg-blue-600 mt-3 px-3 py-2 text-sm font-semibold text-white shadow-sm"
+        onClick={() => { openNewWindow() }}
+      >
+        Open New Window
       </button>
     </div>
   )

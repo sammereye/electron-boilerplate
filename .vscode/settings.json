@@ -9,7 +9,7 @@
     ".eslintrc.json": true,
     ".gitignore": true,
     ".webpack/": true,
-    "forge.config.ts": true,
+    "forge.config.ts": false,
     "node_modules/": true,
     "package-lock.json": true,
     "postcss.config.js": true,

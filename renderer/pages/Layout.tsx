@@ -4,7 +4,7 @@ import { Nav } from "../components/Nav";
 
 export function Layout() {
   return (
-    <main className="p-4">
+    <main className="h-full p-4">
       <Nav />
       <Outlet />
     </main>

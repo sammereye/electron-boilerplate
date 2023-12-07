@@ -1,13 +1,14 @@
 import React from "react";
 import { useHookstate } from "@hookstate/core";
 import { COUNT, addToCount } from "../state/number";
+import { BankAccount } from '../components/BankAccount';
 
-export function Home() {
+export function AboutPage() {
   const count = useHookstate(COUNT);
 
   return (
-    <div className="mt-2">
-      <h1>This is the home page</h1>
+    <div className="mt-2 h-full">
+      <h1>This is the about page</h1>
       <p>Count: { count.get() }</p>
       <button 
         type="button" 
@@ -16,6 +17,7 @@ export function Home() {
       >
         Add to Count
       </button>
+      <BankAccount />
     </div>
   )
 }

@@ -16,5 +16,5 @@
       "*": ["node_modules/*"]
     }
   },
-  "include": ["src/**/*", "renderer/App.tsx", "main/renderer.ts", "main/preload.ts", "main/index.ts"]
+  "include": ["src/**/*", "renderer/windows/IndexWindow.tsx", "main/renderer.ts", "main/preload.ts", "main/index.ts"]
 }
