@@ -24,8 +24,6 @@ async function createMainWindow(webpackEntry: string, preloadEntry:string) {
     x: userConfig.mainWindow.x,
     y: userConfig.mainWindow.y,
     webPreferences: {
-      contextIsolation: false,
-      nodeIntegration: true,
       spellcheck: false,
       preload: preloadEntry
     }

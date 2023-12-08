@@ -14,7 +14,7 @@ if (require('electron-squirrel-startup')) {
 }
 
 // Better performance when a menu is not needed
-Menu.setApplicationMenu(null);
+// Menu.setApplicationMenu(null);
 
 app.on('ready', () => {
   openMainWindow(MAIN_WINDOW_WEBPACK_ENTRY, MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY);

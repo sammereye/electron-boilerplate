@@ -6,6 +6,7 @@ export function Nav() {
     <nav className="space-x-4">
       <NavLink to="/" className={({ isActive }) => isActive ? 'bg-blue-600 text-white px-3 py-1 inline-block font-semibold rounded border-2 border-blue-600' : 'text-blue-600 px-3 py-1 inline-block font-semibold rounded border-2 border-blue-600'}>Home</NavLink>
       <NavLink to="/otherpage" className={({ isActive }) => isActive ? 'bg-blue-600 text-white px-3 py-1 inline-block font-semibold rounded border-2 border-blue-600' : 'text-blue-600 px-3 py-1 inline-block font-semibold rounded border-2 border-blue-600'}>Other Page</NavLink>
+      <NavLink to="/bankaccount" className={({ isActive }) => isActive ? 'bg-blue-600 text-white px-3 py-1 inline-block font-semibold rounded border-2 border-blue-600' : 'text-blue-600 px-3 py-1 inline-block font-semibold rounded border-2 border-blue-600'}>Bank Account</NavLink>
     </nav>
   )
 }
